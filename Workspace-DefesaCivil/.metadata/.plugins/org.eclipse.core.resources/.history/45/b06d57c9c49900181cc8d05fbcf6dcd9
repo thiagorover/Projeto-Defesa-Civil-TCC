@@ -1,0 +1,57 @@
+package com.defesacivil.api.domain;
+
+import java.io.Serializable;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
+
+@Entity
+public class Profile extends EntityBase implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	@Column
+	@OneToMany(cascade=CascadeType.MERGE)
+	private  List<Permission> permissions;
+	
+	private User user;
+	
+	@Column
+	private boolean deleted;
+	
+	@Column
+	@NotBlank(message = "É necessário informar um tipo de Usuário.")
+	private int tipoUser;
+	
+	public int getTipoUser() {
+		return tipoUser;
+	}
+
+	public void setTipoUser(int tipoUser) {
+		this.tipoUser = tipoUser;
+	}
+
+	//JPA
+	public List<Permission> getPermission() {
+		return permissions;
+	}
+
+	public void setPermission(Permission permission) {
+		this.permissions.add(permission);
+	}
+	
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+}

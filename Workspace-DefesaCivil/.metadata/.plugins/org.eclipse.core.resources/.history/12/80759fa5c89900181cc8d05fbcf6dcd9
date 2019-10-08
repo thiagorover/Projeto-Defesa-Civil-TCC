@@ -1,0 +1,110 @@
+package com.defesacivil.api.controllers;
+
+import java.util.Optional;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.defesacivil.api.domain.Profile;
+import com.defesacivil.api.domain.User;
+import com.defesacivil.api.services.ProfileService;
+
+/*
+	 * add(request, response) {
+	    if (request.currentUser && request.currentUser.is_admin == 1) {
+
+	      const validation = yield Validator.validateAll(request.all(), Profile.rules)
+
+	      if (validation.fails()) {
+	        yield response.badRequest({
+	          message: 'Perfil já existente.'
+	        })
+	      }
+
+	      const trx = yield Database.beginTransaction()
+
+	      const profile = new Profile()
+	      profile.description = request.input('description')
+	      profile.status = 1
+	      profile.useTransaction(trx)
+
+	      yield profile.save();
+
+	      let permissions = request.input('permissions')
+	      if (permissions) {
+
+	        for (let i = 0; i < permissions.length; i++) {
+
+	          let ret = yield Permission.findBy('id', permissions[i])
+	          if (!ret) {
+	            trx.rollback();
+	            yield response.badRequest({
+	              message: 'Permissão inexistente'
+	            })
+	          }
+
+	          let php = new PHP()
+	          php.profile_id = profile.id
+	          php.permission_id = permissions[i]
+	          php.useTransaction(trx)
+	          yield profile.php().save(php)
+	        }
+	      }
+	      trx.commit()
+
+	      yield response.ok({
+	        message: 'Perfis salvos com sucesso',
+	        object: profile
+	      })
+	    } else {
+	      response.unauthorized({
+	        message: 'Usuário não tem essa permissão.'
+	      })
+	    }
+	  }
+    */
+
+@RestController
+@RequestMapping(value = "/profiles")
+public class ProfileController {
+
+	@Autowired
+	private ProfileService profileService;
+
+	/**
+	 * Método de criação do Profile
+	 * 
+	 * @param profile
+	 * @param bindingResult
+	 * @param true
+	 */
+
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity<Object> add(@Valid @RequestBody Profile profile, BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			return new ResponseEntity<Object>(bindingResult.getAllErrors(), HttpStatus.NOT_ACCEPTABLE);
+
+		} else {
+			Optional<Profile> profileId = profileService.findById(profile.getId());
+
+			if (!profileId.isPresent()) {
+				
+				profile.s(false);
+				profile = profileService.save(profile);
+				return new ResponseEntity<Object>("Perfil salvo com sucesso!", HttpStatus.CREATED);
+
+			} else {
+
+				return new ResponseEntity<Object>("Perfil já existente.", HttpStatus.NOT_ACCEPTABLE);
+			}
+		}
+	}
+}

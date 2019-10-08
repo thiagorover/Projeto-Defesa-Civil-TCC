@@ -1,0 +1,61 @@
+package com.defesacivil.api.domain;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+@MappedSuperclass
+public abstract class EntityBase  {
+	
+	
+	@Id 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int id ;
+	
+	@JsonFormat(pattern="dd/MM/yyyy HH:mm")
+	@Column(updatable=false)
+	@CreationTimestamp
+	private Date dataCreate;
+	
+	@JsonFormat(pattern="dd/MM/yyyy HH:mm")
+	@UpdateTimestamp
+	private Date dataUpdate;
+	@Column
+	private String description;
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public Date getDataCreate() {
+		return dataCreate;
+	}
+	public void setDataCreate(Date dataCreate) {
+		this.dataCreate = dataCreate;
+	}
+	public Date getDataUpdate() {
+		return dataUpdate;
+	}
+	public void setDataUpdate(Date dataUpdate) {
+		this.dataUpdate = dataUpdate;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	
+}
