@@ -1,4 +1,4 @@
-# README - DEMONSTRAÇÃO TCC #
+# README - TCC - DEFESA CIVIL 2018 - SENAI JOINVILLE #
 
 #### Requirements ####
 
