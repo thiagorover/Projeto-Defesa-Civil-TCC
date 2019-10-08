@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="api-adonis-js/public/app-react-native/android/app/src/main/java"/>
+	<classpathentry kind="src" path="api-spring/Defesacivil/src/main/java"/>
+	<classpathentry kind="src" path="api-spring/Defesacivil/src/test/java"/>
+	<classpathentry kind="src" path="app-react-native/android/app/src/main/java"/>
+	<classpathentry kind="lib" path="api-adonis-js/public/app-react-native/android/gradle/wrapper/gradle-wrapper.jar"/>
+	<classpathentry kind="lib" path="api-spring/Defesacivil/.mvn/wrapper/maven-wrapper.jar"/>
+	<classpathentry kind="lib" path="api-spring/Defesacivil/bin/.mvn/wrapper/maven-wrapper.jar"/>
+	<classpathentry kind="lib" path="app-react-native/android/gradle/wrapper/gradle-wrapper.jar"/>
+	<classpathentry kind="output" path="api-spring/Defesacivil/target/classes"/>
+</classpath>

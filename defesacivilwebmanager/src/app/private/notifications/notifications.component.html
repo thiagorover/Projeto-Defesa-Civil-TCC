@@ -1,0 +1,60 @@
+<p-dialog [(visible)]="display" modal="modal" [responsive]="true" [width]="500" [draggable]="false" (onHide)="closeDialog()">
+	<p-header>
+		Enviar notificação
+	</p-header>
+	<div class="input-group form-group mb-1">
+		<input type="text" [(ngModel)]="notification.description" class="form-control" placeholder="Título">
+	</div>
+	<div class="input-group mb-2">
+		<textarea class="form-control" [(ngModel)]="notification.detail" [rows]="5" [cols]="30" pInputTextarea ></textarea>
+	</div>
+	<p-footer>
+		<div class="ui-dialog-buttonpane ui-helper-clearfix">
+			<p>
+				<button type="text" (click)="addNotification()" pButton label="Enviar"></button>
+			</p>
+		</div>
+	</p-footer>
+</p-dialog>
+
+<div class="container-fluid pt-2">
+	<h1>Notificações</h1>
+	<p>
+		<button type="text" (click)="showDialog()" pButton icon="fa-plus" label="Adicionar" class="ui-button-success"></button>
+	</p>
+	<p-table #notifinationTable [lazy]="true" (onLazyLoad)="loadNotificationLazy($event)" [value]="notifications?.data" [paginator]="true" [rows]="15" [pageLinks]="5"
+	[totalRecords]="notifications?.total"
+	[columns]="columns">
+		<ng-template pTemplate="header">
+			<tr>
+				<th *ngFor="let col of columns">
+					{{col.header}}
+				</th>
+				<th>Ações</th>
+			</tr>
+		</ng-template>
+		<ng-template pTemplate="body" let-rowData let-columns="columns">
+			<tr [pSelectableRow]="rowData">
+				<td *ngFor="let col of columns">
+					<span *ngIf="!col.isDate">
+						{{rowData[col.field]}}
+					</span>
+					<span *ngIf="col.isDate">
+						{{rowData[col.field] | date: 'dd/M/yyyy'}}
+					</span>
+				</td>
+				<td>
+					<button pButton type="button" (click)="deleteNotification(rowData.id)" class="ui-button-danger" icon="fa-trash-o"></button>
+				</td>
+			</tr>
+		</ng-template>
+		<ng-template pTemplate="emptymessage" >
+			<tr>
+				<td colspan="4" class="text-center">
+					Não há registros disponíveis
+				</td>
+			</tr>
+		</ng-template>
+	</p-table>
+	<p-confirmDialog></p-confirmDialog>
+</div>

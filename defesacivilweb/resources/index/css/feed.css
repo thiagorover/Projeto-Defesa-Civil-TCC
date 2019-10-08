@@ -1,0 +1,30 @@
+#imgfeed{
+	width: 100px;
+	height: 100px;
+}
+
+#loader{
+	width: 25px;
+    height: 25px;
+    margin-left: 110px;
+}
+
+.font{
+	font-family: 'Lato', sans-serif;
+}
+
+.azul {
+     background-color: #87CEFA !important;
+}
+
+.verde {
+     background-color: #90EE90 !important;
+}
+
+.amarelo {
+     background-color: #F0E68C !important;
+}
+
+.default {
+     background-color: #D8BFD8 !important;
+}

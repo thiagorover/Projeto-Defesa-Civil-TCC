@@ -1,5 +1,0 @@
-package com.defesacivil.api.repositories;
-
-public abstract class ProfileRepository extends JpaRespository<Profile, Interger>{
-
-}

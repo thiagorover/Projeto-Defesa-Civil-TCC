@@ -1,0 +1,15 @@
+node_modules
+storage
+!.gitkeep
+.env
+npm-debug.log
+api-adonis-js/env.example
+api-spring/.recommenders/
+/.metadata/
+/Servers/
+/RemoteSystemsTempFiles/
+/api-spring/Defesacivil/bin/src/main/resources
+api-spring/Defesacivil/src/main/resources/application.properties
+api-adonis-js/
+api-adonis-js
+api-adonis-js/public

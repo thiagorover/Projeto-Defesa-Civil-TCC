@@ -1,0 +1,56 @@
+<div class="app flex-row align-items-center"style="  background: url('assets/img/demonio.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+">
+  <div style="width: 100%; height: 100%; position:absolute; background-color: rgba(255,152,0,.8);"></div>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-5">
+        <div class="card-group mb-0">
+          <div class="card p-2">
+            <div class="card-block">
+            	<h1>Entrar</h1>
+				<form  #loginForm="ngForm">
+					<div class="form-group">
+						<input type="email" class="form-control" id="email" required [(ngModel)]="userLogin.email" name="email" placeholder="Digit o seu e-mail" #email="ngModel">
+						<div id="emailRequired" style="margin-top:5px;" [hidden]="email.valid || email.pristine" class="alert alert-danger">
+							Preencha o campo e-mail
+						</div>
+						<input type="password" class="form-control" id="password" required [(ngModel)]="userLogin.password" name="password" placeholder="Digit a sua senha" #password="ngModel">
+						<a href="#" (click)="showDialog()">Esqueceu sua senha?</a>
+						<div id="passwordRequired" style="margin-top:5px;" [hidden]="password.valid || password.pristine" class="alert alert-danger">
+							Preencha o campo senha
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12 text-right">
+							<button id="loginButon" type="submit" class="btn px-2"
+								style="background-color: #3F51B5;
+										color: #ffffff;" (click)="login()" [disabled]="!loginForm.form.valid">
+								Enviar
+							</button>
+						</div>
+					</div>
+				</form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p-dialog [(visible)]="display" modal="modal" [responsive]="true" [width]="500" [draggable]="false" >
+	<p-header>
+		Informe seu e-mail
+	</p-header>
+	<form #forgottenEmailForm="ngForm">
+		<input type="email" class="form-control" id="forgottenEmail" required [(ngModel)]="forgottenEmail" name="forgottenEmail" placeholder="Digit o seu e-mail" #email="ngModel">
+	</form>
+	<p-footer>
+		<div class="ui-dialog-buttonpane ui-helper-clearfix">
+			<button class="btn btn-primary" pButton type="text" (click)="generatePassword()"  [disabled]="!forgottenEmailForm.form.valid">Enviar</button>
+		</div>
+	</p-footer>
+</p-dialog>

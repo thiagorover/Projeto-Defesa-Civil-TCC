@@ -1,0 +1,23 @@
+<div class="container-fluid pt-2">
+  <h1>Histórico de marcações</h1>
+  	<p-dataTable [emptyMessage]="'Não há registros'" [value]="markupsView" [editable]="true">
+		<p-column field="description" header="Descrição" [filter]="true"></p-column>
+		<p-column field="markupType" header="Tipo" [filter]="true" [style]="{'text-align': 'center'}">
+			<ng-template let-col let-type="rowData" pTemplate="body">
+				<img src="img/icone-marcador-{{type[col.field]}}.png" style="height: 20px; width: 20px;">
+			</ng-template>
+		</p-column>
+		<p-column field="createdDate" header="Criado em" [filter]="true" >
+			<ng-template let-col let-created="rowData" pTemplate="body">
+				{{created[col.field] | date: 'dd/MM/yyyy'}}
+			</ng-template>
+		</p-column>
+		<p-column field="id" header="Ações">
+			<ng-template let-col let-markup="rowData" pTemplate="body">
+
+				<button pButton type="button" (click)="deleteMarkup(markup[col.field])" class="ui-button-danger" icon="fa-trash-o"></button>
+			</ng-template>
+		</p-column>
+	</p-dataTable>
+	<p-confirmDialog></p-confirmDialog>
+</div>

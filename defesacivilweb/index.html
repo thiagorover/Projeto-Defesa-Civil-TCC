@@ -1,0 +1,295 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+  	<head>
+    	<title>Defesa Civil</title>
+	    <meta name="viewport" content="initial-scale=1.0">
+	    <meta charset="utf-8">
+		<meta name="description" content="Defesa Civil - Web">
+		<meta name="author" content="Adriel">
+		<meta name="keyword" content="Defesa Civil">
+		
+		<link rel="shortcut icon" href="resources/index/img/favicon.ico" type="image/x-icon">
+		<link rel="icon" href="resources/index/img/favicon.ico" type="image/x-icon">
+		
+		<!-- API google login -->
+    	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+	    <!-- Bootstrap CSS -->
+		<link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<link href="resources/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+		<link href="resources/bootstrap/outros/bootstrap-social.css" rel="stylesheet">
+		<!-- Usuário -->
+		<link href="resources/index/css/usuario.css" rel="stylesheet">
+		<!-- Login -->
+		<link href="resources/index/css/login.css" rel="stylesheet">
+		<!-- Menu -->
+		<link href="resources/index/css/menu.css" rel="stylesheet">
+		<!-- Mapa -->
+		<link href="resources/index/css/mapa.css" rel="stylesheet">
+		<!-- Feed -->
+		<link href="resources/index/css/feed.css" rel="stylesheet">
+		<!-- Font awesome -->
+		<link href="resources/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+		
+  	</head>
+	<body>
+		<!-- Modal -->
+		<div class="modal fade login bs-example-modal-sm" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" style="display: none;">
+			<div class="modal-dialog">
+    			<div class="modal-content">
+      				<div class="modal-body">
+           				<div id="div-forms">
+		                    <form id="login-form">
+           						<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									<h4 id="text-login-msg" class="modal-title" id="myModalLabel">Entrar</h4>
+								</div>
+				                <div class="modal-body">
+									<div class="form-group">
+							    		<input id="login_email" class="form-control" type="text" placeholder="E-mail">
+							    		<input id="login_senha" class="form-control" type="password" placeholder="Senha">
+									</div>
+		                            <!--<div class="checkbox">
+		                                <label>
+											<input type="checkbox"> Lembrar me
+		                                </label>
+		                            </div>-->
+		        		    	</div>
+						        <div class="modal-footer">
+		                            <div>
+		                                <input type="button" class="btn btn-primary btn-lg btn-block" value="Entrar" onclick="usuario.login();">
+		                                <!--<br>
+		                                <div class="fb-login-button" data-width="288" data-height="45" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
+		                                <br>-->
+		                                <!--<br>
+		                                <div id="gSignInWrapper">
+										    <div id="customBtn" class="customGPlusSignIn">
+												<span class="icon"></span>
+										      	<span class="buttonText">Entrar com o Google</span>
+										    </div>
+									  	</div>-->
+		                            </div>
+						    	    <div>
+										<button id="login_lost_btn" type="button" class="btn btn-link">Redefinir senha?</button>
+		                                <button id="login_register_btn" type="button" class="btn btn-link">Registrar-se</button>
+		                            </div>
+						        </div>
+		                    </form>
+							<form id="lost-form" style="display:none;">
+       	 						<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									<h4 id="text-login-msg" class="modal-title" id="myModalLabel">Redefinir senha</h4>
+								</div>
+				    		    <div class="modal-body">
+									<div class="form-group">
+										<input id="lost_email" class="form-control" type="text" placeholder="E-mail">
+									</div>
+				       			</div>
+					 		    <div class="modal-footer">
+					                <div>
+					                	<input type="button" class="btn btn-primary btn-lg btn-block" value="Enviar" onclick="usuario.redefinirSenha();">
+					                    <br>
+					                </div>
+					                <div>					                
+				                   		<button id="lost_login_btn" type="button" class="btn btn-link">Entrar</button>
+					                    <button id="lost_register_btn" type="button" class="btn btn-link">Registrar-se</button>
+					                </div>
+					 		    </div>
+							</form>
+			               	<form id="register-form" style="display:none;">
+           						<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									<h4 id="text-login-msg" class="modal-title" id="myModalLabel">Criar conta</h4>
+								</div>
+			           		    <div class="modal-body">
+									<div class="form-group">
+					    				<input id="criar_nome" class="form-control" type="text" placeholder="Nome">
+				                        <input id="criar_email" class="form-control" type="text" placeholder="E-mail">
+				                  	    <input id="criar_senha" class="form-control" type="password" placeholder="Senha">
+				                  	    <input id="criar_confirmar_senha" class="form-control" type="password" placeholder="Confirmar senha">
+				                  	</div>
+			       				</div>
+				    		    <div class="modal-footer">
+									<div>
+										<input type="button" class="btn btn-primary btn-lg btn-block" value="Enviar" onclick="usuario.inserir();">
+										<!--<br>
+										<div class="fb-login-button" data-width="288" data-height="45" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
+										<br>-->
+										<!--<br>
+		                                <div id="gSignInWrapper">
+										    <div id="customBtn" class="customGPlusSignIn">
+												<span class="icon"></span>
+										      	<span class="buttonText">Entrar com o Google</span>
+										    </div>
+									  	</div>-->
+				                    </div>
+			                      	<div>
+				    	                <button id="register_login_btn" type="button" class="btn btn-link">Entrar</button>
+				        	            <button id="register_lost_btn" type="button" class="btn btn-link">Redefinir senha?</button>
+				        	        </div>
+			                    </div>
+							</form>
+	    				</div>             
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="modal fade config bs-example-modal-sm" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" style="display: none;">
+			<div class="modal-dialog">
+    			<div class="modal-content">
+      				<div class="modal-body">
+   						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 id="text-login-msg" class="modal-title" id="myModalLabel">Configurações</h4>
+						</div>
+		                <div class="modal-body">
+        		    	</div>
+				        <div class="modal-footer">
+                           	<button type="button" class="btn btn-primary btn-lg btn-block" data-dismiss="modal" aria-label="Close">Ok</button>
+			    	    </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="modal fade troca_senha bs-example-modal-sm" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" style="display: none;">
+			<div class="modal-dialog">
+    			<div class="modal-content">
+      				<div class="modal-body">
+           				<div id="div-forms">
+          					<form id="change_password">
+         						<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									<h4 id="text-login-msg" class="modal-title" id="myModalLabel">Alterar Senha</h4>
+								</div>
+				                <div class="modal-body">
+									<div class="form-group">
+										<input id="senha_atual" class="form-control" type="password" placeholder="Senha atual">
+							    		<input id="nova_senha" class="form-control" type="password" placeholder="Nova senha">
+							    		<input id="confirm_nova_senha" class="form-control" type="password" placeholder="Confirmar nova senha">
+									</div>
+		        		    	</div>
+						        <div class="modal-footer">
+	                                <input type="button" class="btn btn-primary btn-lg btn-block" value="Enviar" onclick="usuario.alterarUsuario();">
+					    	    </div>
+	                    	</form>
+	    				</div>             
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		<div class="modal fade sobre bs-example-modal-sm" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" style="display: none;">
+			<div class="modal-dialog">
+    			<div class="modal-content">
+      				<div class="modal-body">
+   						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 id="text-login-msg" class="modal-title" id="myModalLabel">Sobre</h4>
+						</div>
+		                <div class="modal-body">
+		                	<h5>Finalidade</h5>
+			                   <a>A Defesa Civil do Município de Joinville (SC) é o órgão municipal responsável por desenvolver e implementar políticas de Proteção e Defesa Civil no âmbito municipal, como coordenar e supervisionar serviços em situações de emergência, desenvolver ações de prevenção a riscos e atuar na assistência a atingidos por desastres.</a>
+			                      <h5>Localização</h5>
+			                <a> Rua XV de Novembro, 1383 - América - 89201-602, Joinville - SC</a>
+	                        <a>Aberto: segunda a sexta, 8h às 14h</a>
+	                        <a>(47) 3431-1512 | (47) 8910-9056</a>
+	                        <a>defesacivil@joinville.sc.gov.br</a>
+			                   <h5>Serviços</h5>
+			                   <ul>
+			                    <li>Comunicar riscos de desabamentos, inundações, deslizamentos, destelhamentos e situações similares</li>
+	                             <li> Consultar altura de maré</li>
+	                             <li>Dicas de segurança em deslizamentos ou escorregamentos de terra</li>
+	                             <li>Dicas de segurança em inundações</li>
+	                             <li>Dicas de segurança em vendavais</li>
+	                           </ul>
+        		    	</div>
+				        <!--<div class="modal-footer">
+                           	<button type="button" class="btn btn-primary btn-lg btn-block" data-dismiss="modal" aria-label="Close">Ok</button>
+			    	    </div>-->
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		<div id="menu">
+			<div class="botao_fechar" style="cursor:pointer">
+				<div class="fa fa-times-circle" title="Esconder"></div>
+			</div>
+			<div class="tab-content">
+				<div role="tabpanel" class="tab-pane active" id="feed">
+				  	<br> 
+				  	<div class="text-center">
+						<img id="imgfeed" src="resources/index/img/logo_menu.jpg" alt="" title="Defesa Civil">
+					</div>
+				    <br>
+					<div class="panel panel-default panel-group">
+					    <div class="panel-heading">
+					 	   <h3 class="panel-title">Feed de Notícias
+								<img id="loader" src="resources/index/img/loader2.gif" alt="" title="">
+							</h3>
+					  	</div>
+					  	<div class="panel-body" id="notificacoes_feed">
+					  	</div>
+					</div>
+					
+				</div>
+				<div style="display:none;">
+					<input id="input_pesquisar" class="form-control" type="text" placeholder="Pesquisar...">
+					<!--<a id="btn_habilita_rota" class="btn btn-primary" title="Habilitar busca de rotas" onclick="mapa.habilita_desabilita_rotas();">
+						<i class="fa fa-location-arrow" aria-hidden="true"></i>
+					</a>
+					<div id="habilita_desabilita_rota"></div>-->
+					<input id="flt_alagamento" class="btn btn-info" onclick="mapa.filtra_alagamentos();" type="button" title="Alagamentos" value="Alagamentos">
+					<input id="flt_deslizamento" class="btn btn-warning" onclick="mapa.filtra_deslizamentos();" type="button" title="Deslizamentos" value="Deslizamentos">
+					<input id="flt_arvores_caidas" class="btn btn-success" onclick="mapa.filtra_arvores_caidas();" type="button" title="Arvores caídas" value="Arvores caídas">
+					<input id="btn_sobre" class="btn btn-default" type="button" value="Sobre" title="Sobre" data-toggle="modal" data-target=".sobre">
+					<div id="btn_usuario"></div>				
+					<a id="imggoogleplaymapa" href="http://play.google.com/store/apps/details?id=com.google.android.apps.maps" target="_blank">
+						<img id="imggoogleplay" src="resources/index/img/google-play-badge.png" alt="" title="Google Play">
+					</a>					
+				</div>
+			</div>
+		</div>
+		<a href="#" id="botao_menu" title="Feed de notícias"></a>
+		<div id="fb-root"></div>
+    	<div id="map"></div>
+
+    	<!-- jQuery -->
+		<script src="resources/js/jquery-3.2.1.min.js"></script>
+		<!-- Ajax -->
+		<script src="resources/js/ajax.js"></script>
+		<!-- bootstrap -->
+		<script src="resources/bootstrap/js/bootstrap.min.js"></script>
+		<!-- SlimScroll -->
+		<script src="resources/slim-scroll/jquery.slimscroll.js"></script>
+		<!-- Moments -->
+		<script src="resources/moments/moments.js"></script>
+		<!-- Bootbox -->
+    	<script src="resources/bootbox/bootbox.min.js"></script>
+ 		<!-- API google login -->
+		<script src="https://apis.google.com/js/api:client.js"></script>
+ 		<!-- Feed -->
+ 		<script src="resources/index/js/feed.js"></script>
+ 		<!-- Usuario -->
+ 		<script src="resources/index/js/usuario.js"></script>
+ 		<!-- Login -->
+ 		<script src="resources/index/js/login.js"></script>
+ 		<!-- Menu -->
+ 		<script src="resources/index/js/menu.js"></script>
+ 		<!-- API google maps -->
+ 		<script>
+ 			window.mapa = {};
+ 			
+ 			mapa.init = function(){
+ 				$(document).ready(function(){
+ 					mapa.initAutocomplete();
+ 				});
+ 			}
+ 		</script>
+		<script src="resources/index/js/mapa.js"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBlr0dsVdgX9jnh3lY7ncWr-jgB6bxDPko&libraries=places,geometry&callback=mapa.init"></script>
+	</body>
+</html>

@@ -1,0 +1,146 @@
+<header class="app-header navbar">
+	<button class="navbar-toggler mobile-sidebar-toggler hidden-lg-up" type="button">&#9776;</button>
+	<a class="navbar-brand" href="#"></a>
+
+	<ul class="nav navbar-nav hidden-md-down">
+		<li class="nav-item">
+			<a class="nav-link navbar-toggler sidebar-toggler" href="#">&#9776;</a>
+		</li>
+	</ul>
+	<ul class="nav navbar-nav ml-auto">
+		<li class="nav-item hidden-md-down">
+			<a id="logoutButton" class="nav-link fa fa-key fa-lg" (click)="showChangePasswordDialog()" href="#"></a>
+		</li>
+		<li class="nav-item hidden-md-down">
+			<a id="logoutButton" class="nav-link fa fa-sign-out fa-lg" (click)="logout()" href="#"></a>
+		</li>
+	</ul>
+</header>
+
+<div class="app-body">
+	<div class="sidebar">
+		<nav class="sidebar-nav">
+			<ul class="nav">
+				<li class="nav-item nav-dropdown" routerLinkActive="open">
+					<a class="nav-link nav-dropdown-toggle" href="#"><i class="fa fa-bars"></i>Marcações</a>
+					<ul class="nav-dropdown-items">
+						<li class="nav-item">
+							<a id="mapRouterLink" class="nav-link" routerLinkActive="active" [routerLink]="['/private/map']"><i
+								class="fa fa-map-o"></i> Mapa </a>
+						</li>
+						<li class="nav-item">
+							<a id="markupsRouterLink" class="nav-link" routerLinkActive="active" [routerLink]="['/private/markups']"><i
+								class="fa fa-map-marker "></i>Histórico de marcações</a>
+						</li>
+					</ul>
+				</li>
+				<li class="nav-item nav-dropdown" routerLinkActive="open">
+					<a id="groupRouterLink" class="nav-link" routerLinkActive="active" [routerLink]="['/private/groups']"><i
+						class="fa fa-users"></i> Grupos </a>
+				</li>
+				<li class="nav-item nav-dropdown" routerLinkActive="open">
+					<a id="usersRouterLink" class="nav-link" routerLinkActive="active" [routerLink]="['/private/users']"><i
+						class="fa fa-user"></i> Usuários </a>
+				</li>
+				<li class="nav-item nav-dropdown" routerLinkActive="open">
+					<a id="notificationsRouterLink" class="nav-link" routerLinkActive="active" [routerLink]="['/private/notifications']"><i
+						class="fa fa-bell"></i>Notificações</a>
+				</li>
+				<li class="divider m-h"></li>
+			</ul>
+		</nav>
+	</div>
+
+	<!-- Main content -->
+	<main class="main">
+		<div class="container-fluid">
+			<router-outlet></router-outlet>
+		</div><!-- /.conainer-fluid -->
+	</main>
+
+	<aside class="aside-menu">
+      <div class="callout m-0 py-h text-muted text-center bg-faded text-uppercase">
+        <small>
+          <b>Aguardando aprovação</b>
+        </small>
+      </div>
+      <hr class="transparent mx-1 my-0">
+      <div class="callout m-0 py-1"
+          [ngClass]="{
+            'callout-info': markup.markup_type_id == 1,
+            'callout-danger': markup.markup_type_id == 2,
+            'callout-success': markup.markup_type_id == 3
+          }"
+          *ngFor="let markup of markups"
+          (click)="redirectToMap(markup)">
+        <div class="avatar float-right">
+          <img [src]="'./img/icone-marcador-' + markup.markup_type_id + '.png'" class="img-avatar">
+        </div>
+        <div>{{markup.description}}</div>
+        <small class="text-muted mr-1">
+          <i class="icon-calendar"></i>&nbsp; {{markup.created_at | date: 'd/MM/y - HH:mm'}}
+        </small>
+        <small class="mr-1">
+          <i pTooltip="Aprovar Imagem" tooltipPosition="bottom" class="btn-action icon-picture"
+              (click)="openModal(markup)"></i>
+        </small>
+      </div>
+	</aside>
+</div>
+
+<p-dialog showEffect="fade"
+    [(visible)]="display"
+    header="Aprovar marcação"
+    modal="modal"
+    [responsive]="true"
+    [width]="600"
+	[positionTop]="50"
+    [draggable]="true"
+    (onHide)="closeDialog()">
+	<div class="ui-g ui-fluid">
+		<div class="ui-g-12" *ngIf="dialogMarkup && dialogMarkup.path">
+			<img [src]="dialogMarkup.path" style="position:relative; width:100%; height: 100%"/>
+		</div>
+		<div class="ui-g-12" *ngIf="dialogMarkup && dialogMarkup.description">
+			<h5>Descrição</h5>
+			<p>{{dialogMarkup.description}}</p>
+		</div>
+	</div>
+	<p-footer>
+		<div class="ui-dialog-buttonpane ui-helper-clearfix">
+			<button type="button" pButton label="Aprovar" (click)="accept(dialogMarkup)"></button>
+			<button type="button" class="ui-button-danger" pButton label="Reprovar" (click)="decline(dialogMarkup)"></button>
+		</div>
+	</p-footer>
+</p-dialog>
+
+
+<p-dialog [(visible)]="displayChangePassword" modal="modal" [responsive]="true" [width]="500" [draggable]="false" >
+	<p-header>
+		Alterar senha
+	</p-header>
+	<form #userForm="ngForm">
+		<div class="input-group mb-2">
+			<input type="password" id="password" name="password" #password="ngModel" [(ngModel)]="changePasswordUser.password" class="form-control" placeholder="Senha atual" [required]="true"/>
+		</div>
+		<div class="input-group mb-2">
+			<input type="password" id="newPassword" name="newPassword" #newPassword="ngModel" [(ngModel)]="changePasswordUser.newPassword" class="form-control" placeholder="Nova senha" [required]="true"/>
+		</div>
+		<div class="input-group mb-2">
+			<input type="password" id="newPasswordConfirm" name="newPasswordConfirm" #newPasswordConfirm="ngModel" [(ngModel)]="changePasswordUser.newPasswordConfirm" class="form-control" placeholder="Nova senha" [required]="true"/>
+		</div>
+		<div id="writeNewPasswordAgain" name="writeNewPasswordAgain" style="margin-top:5px;"
+			[hidden]="changePasswordUser.newPassword === changePasswordUser.newPasswordConfirm || newPasswordConfirm.pristine" class="alert alert-danger">
+			Nova senha não confere com a digitada
+		</div>
+	</form>
+	<p-footer>
+		<div class="ui-dialog-buttonpane ui-helper-clearfix">
+			<p>
+				<button type="text" (click)="changePassword()" pButton label="Enviar"
+				[disabled]="!userForm.form.valid || changePasswordUser.newPassword !== changePasswordUser.newPasswordConfirm"></button>
+			</p>
+		</div>
+	</p-footer>
+</p-dialog>
+

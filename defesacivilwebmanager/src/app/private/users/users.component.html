@@ -1,0 +1,71 @@
+<p-dialog [(visible)]="display" modal="modal" [responsive]="true" [width]="500" [draggable]="false" (onHide)="closeDialog()">
+	<p-header>
+		Usuários
+	</p-header>
+	<form #userForm="ngForm">
+		<div class="input-group form-group mb-1">
+			<input type="text" id="name" name="name" #name="ngModel" [(ngModel)]="user.name" class="form-control" placeholder="Usuário"  [required]="!name.disabled">
+		</div>
+		<div style="margin-top:5px;display:block;" [hidden]="hideMessage(name)" class="alert alert-danger">
+			Preencha o campo nome
+		</div>
+		<div class="input-group mb-2">
+			<input type="email" id="email" name="email" #email="ngModel" [(ngModel)]="user.email" class="form-control" placeholder="E-mail" [disabled]="user.user_id" [required]="!email.disabled"/>
+		</div>
+		<div style="margin-top:5px;display:block;" [hidden]="hideMessage(email)" class="alert alert-danger">
+			Preencha o campo email
+		</div>
+		<div class="input-group mb-2">
+			<input type="password" name="password" #password="ngModel" [(ngModel)]="user.password" class="form-control" placeholder="Senha" [disabled]="user.user_id" [required]="!password.disabled"/>
+		</div>
+		<div style="margin-top:5px;display:block;" [hidden]="hideMessage(password)" class="alert alert-danger">
+			Preencha o campo senha
+		</div>
+		<div *ngIf="!user.user_id">
+			<div class="input-group mb-2">
+				<input type="passwordConfirm" name="passwordConfirm" #passwordConfirm="ngModel" [(ngModel)]="passwordConfirmModel" class="form-control" placeholder="Confirmar senha" [disabled]="user.user_id" [required]="!passwordConfirm.disabled"/>
+			</div>
+			<div style="margin-top:5px;display:block;" [hidden]="hideMessage(passwordConfirm)" class="alert alert-danger">
+				Preencha o campo confirmar senha
+			</div>
+			<div id="writeNewPasswordAgain" name="writeNewPasswordAgain" style="margin-top:5px;"
+				[hidden]="passwordConfirmModel === user.password || passwordConfirm.pristine" class="alert alert-danger">
+				Confirmação de senha não confere com a senha digitada
+			</div>
+		</div>
+		<div class="input-group mb-2">
+			<p-dropdown [options]="groups" id="group" name="group" #group="ngModel" [(ngModel)]="user.profile_id"
+				[style]="{'position': 'absolute', 'width':'100%', 'margin-bottom':'20px'}" [required]="!group.disabled"></p-dropdown>
+		</div>
+		<div class="input-group mt-3 ui-g">
+			<p-checkbox #receiveNotification id="receiveNotification" name="receiveNotification" [(ngModel)]="user.receive_notification" label="Notificações" binary="true"></p-checkbox>
+		</div>
+	</form>
+	<p-footer>
+		<div class="ui-dialog-buttonpane ui-helper-clearfix">
+			<p>
+				<button type="text" *ngIf="!user.user_id" (click)="addUser()" pButton label="Enviar" [disabled]="!userForm.form.valid || !user.user_id && passwordConfirmModel !== user.password"></button>
+				<button type="text" *ngIf="user.user_id" (click)="updateUser(user)" pButton label="Atualizar" [disabled]="!userForm	.form.valid"></button>
+			</p>
+		</div>
+	</p-footer>
+</p-dialog>
+
+<div class="container-fluid pt-2">
+	<h1>Usuários</h1>
+	<p>
+		<button type="text" (click)="showDialog()" pButton icon="fa-plus" label="Adicionar" class="ui-button-success"></button>
+	</p>
+
+	<p-dataTable [emptyMessage]="'Não há registros'" [value]="users" [editable]="true">
+		<p-column field="name" header="Nome" [filter]="true" filterPlaceholder="Buscar nome"></p-column>
+		<p-column field="email" header="Email" [filter]="true" filterPlaceholder="Buscar email"></p-column>
+		<p-column field="user_id" header="Ações">
+			<ng-template let-col let-user="rowData" pTemplate="body">
+				<button pButton type="button" (click)="openUpdateUser(user[col.field])" class="ui-button-info" icon="fa-pencil"></button>
+				<button pButton type="button" (click)="deleteUser(user[col.field])" class="ui-button-danger" icon="fa-trash-o"></button>
+			</ng-template>
+		</p-column>
+	</p-dataTable>
+	<p-confirmDialog></p-confirmDialog>
+</div>

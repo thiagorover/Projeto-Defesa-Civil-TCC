@@ -1,0 +1,172 @@
+/*#map {
+	height: 100%;
+}
+
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+#input_pesquisar {
+	width: 300px;
+	margin-left: 80px;
+	margin-top: 12px;
+}*/
+
+/*#btn_habilita_rota{
+	width: 50px;
+	margin-top: 12px;
+}*/
+  
+/*#input_p_inicial {
+	width: 300px;
+	margin-left: 80px;
+	margin-top: 10px;
+}
+  
+#input_p_final {
+	width: 300px;
+	margin-left: 80px;
+	margin-top: 4px;
+}
+	
+#btn_rota{
+	margin-left: 80px;
+	margin-top: 8px;	
+}
+
+#flt_alagamento {
+	margin-left: 80px;
+	margin-top: 20px;
+}
+
+#flt_deslizamento {
+	margin-left: 80px;
+	margin-top: 10px;
+}
+
+#flt_arvores_caidas {
+	margin-left: 80px;
+	margin-top: 10px;
+}
+
+#btn_entrar{
+	display: block;
+	margin-right: 12px;
+	margin-top: 12px;
+}
+
+#btn_sair{
+	display: block;
+	margin-right: 12px;
+	margin-top: 12px;
+}
+
+#btn_sobre{
+	display: block;
+	margin-right: 18px;
+	margin-top: 12px;
+}   
+*/
+
+#imggoogleplay{
+	width: 120px !important;
+	height: 50px !important;
+}
+
+#map {
+	height: 100%;
+}
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+#input_pesquisar {
+	width: 300px;
+	margin-left: 80px;
+	margin-top: 12px;
+}
+
+#btn_habilita_rota{
+	width: 50px;
+	margin-top: 12px;
+}
+  
+#input_p_inicial {
+	width: 300px;
+	margin-left: 80px;
+	margin-top: 10px;
+}
+  
+#input_p_final {
+	width: 300px;
+	margin-left: 80px;
+	margin-top: 4px;
+}
+	
+#btn_rota{
+	margin-left: 80px;
+	margin-top: 8px;	
+}
+
+#flt_alagamento {
+	background: url('../img/alagamento.png')no-repeat;
+	background-position: 4% 50%;
+    background-size: 15px 15px;
+	margin-left: 80px;
+	margin-top: 20px;
+	width: 140px !important;
+	color: black !important;
+	text-shadow: 0px 0px 0px black;
+	border-radius: 100px;
+}
+
+#flt_deslizamento {
+	background: url('../img/deslizamento_terra.png')no-repeat;
+	background-position: 4% 50%;
+    background-size: 15px 15px;
+	margin-left: 80px;
+	margin-top: 10px;
+	width: 140px !important;
+	color: black !important;
+	text-shadow: 0px 0px 0px black;
+	border-radius: 100px;
+}
+
+#flt_arvores_caidas {
+	background: url('../img/arvores_caidas.png')no-repeat;
+	background-position: 4% 50%;
+    background-size: 15px 15px;
+	margin-left: 80px;
+	margin-top: 10px;
+	width: 140px !important;
+	color: black !important;
+	text-shadow: 0px 0px 0px black;
+	border-radius: 100px;
+}
+
+#btn_entrar{
+	display: block;
+	margin-right: 12px;
+	margin-top: 12px;
+}
+
+#btn_sair{
+	display: block;
+	margin-right: 12px;
+	margin-top: 12px;
+}
+
+#btn_sobre{
+	display: block;
+	margin-right: 18px;
+	margin-top: 12px;
+}   
+#painel{
+	display: block;
+	margin-right: 18px;
+	margin-top: 12px;
+} 

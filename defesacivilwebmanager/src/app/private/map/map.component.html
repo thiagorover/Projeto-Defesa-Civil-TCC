@@ -1,0 +1,82 @@
+<div class="animated fadeIn" style="height: 100%">
+	<div class="row" style="height: 100%">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<p-growl [value]="msgs"></p-growl>
+			<div id="pac-input-div" style="margin-top: 10px!important">
+				<div class="ui-inputgroup">
+					<input type="text" pInputText placeholder="Digite o endereço"
+						id="pac-input" style="font-size: 1.5em; min-width: 20em;" />
+					<button pButton
+						(click)="toggleHeatmap()"
+						pTooltip="{{heatmapTooltipMessage}}" tooltipPosition="bottom"
+						type="button"
+						icon="fa-superpowers"
+						class="ui-md-3">
+					</button>
+				</div>
+			</div>
+			<div id="satanas" style="margin-top: 10px!important">
+				<p-calendar [(ngModel)]="rangeDates"
+					[locale]="calendarLocale"
+					dateFormat="dd/mm/yy"
+					(onClose)="updateMapWithFilters()"
+					[disabled]="isHeatmapActive"
+					[style]="{
+						'line-height': '1.5em',
+						'font-size': '1.4em',
+						'margin-left': '10px'
+					}"
+					[inputStyle]="{
+						'min-width': '12em'
+					}"
+					[inputStyleClass]="['ui-md-3']"
+					[showIcon]="true"
+					selectionMode="range"
+					readonlyInput="true"
+					placeholder="Filtrar data"
+					>
+				</p-calendar>
+			</div>
+			<p-selectButton
+				id="filter-button"
+				[options]="markupTypesFilter"
+				[(ngModel)]="selectedTypesFilter"
+				(onChange)="updateMapWithFilters()"
+				[style]="{
+					'margin-bottom': '25px',
+					'margin-left': '10px',
+					'font-size': '1.4em',
+					'min-width': '10em'
+				}"
+				[disabled]="isHeatmapActive"
+			></p-selectButton>
+
+			<p-gmap #gmap [style]="{'width':'100%','min-height':'100%', 'height':'100%'}" [options]="options"
+					[overlays]="overlays"
+					(onMapReady)="setMap($event)"
+					(onMapClick)="handleMapClick($event)"
+					(onMapDragEnd)="handleDragEnd($event)"
+					(onOverlayClick)="handleOverlayClick($event)"></p-gmap>
+
+			<p-dialog showEffect="fade" [(visible)]="dialogVisible && selectedPosition" header="Nova marcação" [responsive]="true" [width]="500" [draggable]="true" (onHide)="closeDialog()">
+				<div class="ui-g-12">
+					<form #markerForm="ngForm">
+						<div class="ui-g-12">
+							<textarea name="description" pInputTextarea id="title" [(ngModel)]="markup.description" style="width: 100%" required></textarea>
+						</div>
+						<div class="ui-g-12">
+							<div class="input-group mb-2">
+								<p-dropdown name="markupType" [options]="markupTypes" [(ngModel)]="markup.markup_type_id" [style]="{'position': 'absolute', 'width':'100%', 'margin-bottom':'20px'}" [required]="true"></p-dropdown>
+							</div>
+						</div>
+					</form>
+				</div>
+				<p-footer>
+					<div class="ui-dialog-buttonpane ui-helper-clearfix">
+						<button type="button" pButton label="Adicionar marcação" icon="fa-plus" (click)="addMarker()" [disabled]="!markerForm.form.valid"></button>
+					</div>
+				</p-footer>
+			</p-dialog>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,50 @@
+<p-dialog [(visible)]="display" modal="modal" [responsive]="true" [width]="500" [draggable]="false" (onHide)="closeDialog()">
+	<p-header>
+		Grupo
+	</p-header>
+	<form #groupForm="ngForm">
+		<div class="input-group form-group mb-1">
+			<input name="description" #description="ngModel" [(ngModel)]="group.description" type="text" class="form-control" placeholder="Nome" [required]="!group.id">
+
+		</div>
+		<div style="margin-top:5px;display:block;" [hidden]="hideMessage(description)" class="alert alert-danger">
+			Preencha o campo descrição
+		</div>
+		<div class="input-group mt-3 ui-g">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<div class="row">
+					<div *ngFor="let permission of permissions" class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+						<p-checkbox name="permission" (onChange)="updatePermissionGroup(permission, permission.checked)"
+							[(ngModel)]="permission.checked" binary="true" label="{{permission.description}}" ></p-checkbox>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<p-footer>
+		<div class="ui-dialog-buttonpane ui-helper-clearfix">
+			<p>
+				<button type="text" *ngIf="!group.id" (click)="addGroup()" pButton label="Enviar" [disabled]="!groupForm.form.valid"></button>
+				<button type="text" *ngIf="group.id" (click)="updateGroup(group)" pButton label="Atualizar" [disabled]="!groupForm.form.valid"></button>
+			</p>
+		</div>
+	</p-footer>
+</p-dialog>
+
+<div class="container-fluid pt-2">
+	<h1>Grupos</h1>
+		<p>
+			<button type="text" (click)="showDialog()" pButton icon="fa-plus" label="Adicionar" class="ui-button-success"></button>
+		</p>
+	<p-dataTable [emptyMessage]="'Não há registros'" [value]="groups" [editable]="true">
+		<p-column field="id" header="Código" [filter]="true" filterPlaceholder="Buscar por Código"></p-column>
+		<p-column field="description" header="Nome do Grupo" [filter]="true" filterPlaceholder="Buscar por Nome"></p-column>
+		<p-column field="id" header="Ações">
+			<ng-template let-col let-group="rowData" pTemplate="body">
+				<button pButton type="button" (click)="openUpdateGroup(group[col.field])" class="ui-button-info" icon="fa-pencil"></button>
+				<button pButton type="button" (click)="deleteGroup(group[col.field])" class="ui-button-danger" icon="fa-trash-o"></button>
+			</ng-template>
+		</p-column>
+	</p-dataTable>
+	<p-confirmDialog></p-confirmDialog>
+</div>

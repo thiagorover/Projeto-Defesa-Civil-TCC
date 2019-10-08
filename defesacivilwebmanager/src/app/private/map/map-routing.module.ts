@@ -1,0 +1,19 @@
+import {RouterModule, Routes} from "@angular/router";
+import {NgModule} from "@angular/core";
+import {MapComponent} from "./map.component";
+
+const routes: Routes = [
+  {
+    path: '',
+    component: MapComponent,
+    data: {
+      title: 'Map'
+    }
+  }
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class MapRoutingModule {}
