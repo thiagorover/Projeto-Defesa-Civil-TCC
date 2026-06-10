@@ -1,44 +1,93 @@
-# README - TCC - DEFESA CIVIL 2018 - SENAI JOINVILLE #
+# Civil Defense Disaster Mapping — Geolocation Platform
 
-#### Requirements ####
+A web platform for the Civil Defense of Joinville (Brazil) that lets citizens report and monitor, in real time, areas of the city affected by natural disasters such as fallen trees, floods and landslides.
 
-* Node.js 8.0 or greater.
-* Npm 3.0 or greater.
-* angular-cli.
+> Final-year project (TCC) at SENAI Joinville, 2018. The research behind it was published at **Computer on the Beach 2019** (vol. 10): *"Geolocalização aplicada ao mapeamento de Desastres Naturais"*.
 
-### Instalação ###
+---
 
-* Para uma usabilidade melhor, intale o `nodemon` de forma global -> 'npm i -g nodemon'
+## About
 
-* Clonar o repositório -> 'senaidefesacivil/*'
-* Dentro do repositório ´master` baixar as dependências do projeto utilizando o comando 'npm install'
+The platform connects two sides of disaster response:
 
+- **Citizens** report incidents from where they are, feeding the system with real-time, geolocated data.
+- **Civil Defense staff** record, map and generate reports on the affected areas, turning scattered reports into actionable information.
 
-### Configuração BD ###
+The goal was to shorten the gap between an incident happening and the administration knowing about it, using the population itself as a distributed sensor network.
 
-* Criar um arquivo com o nome de `.env` conforme `.env.example`
-* Criar o database "adonis" no mysql
-* Executar o comando 'migration:run' no cmd para criação do banco. -> 'npm run migration'
-* Criar um usuário atraves do 'script_inicializacao' no MySQL workbench 
-	* Dados do usuario gravado no script
-		* `name`:`Admin`,
-		* `email`:`admin@senai.br`,
-		* `password`:`123`,
-		* `is_admin`:`1`,
-		* `profile`: `1`
-	
-	* Criar as permissões de `moderador` e `notification`, para respectivamente ter as permissões de moderador e de inserir notificações
+---
 
-### Instalação ###
+## My role
 
-* Dentro do repositório `defesacivilsenai/defesacivilwebmanager` baixar as dependências do projeto utilizando o comando `npm install`
-* Mudar o endereço da chamada da api rest no arquivo `environment.ts`, por padrão está `http://localhost:3333`
+I worked on the **backend and frontend** of the platform, building the REST API that received and served the geolocated incident data, and the web interface used by the Civil Defense team to visualize and manage occurrences. I was also responsible for the **authentication and session control layer**, implemented with Spring Security.
 
-### Geração do build ###
+This was a team project developed by five authors, all credited in the published paper.
 
-* Utilizar o comando ´ng build` para gerar o build do projeto
-* Irá gerar a pasta dist no diretório 'defesacivilsenai/defesacivilwebmanager', 
-	copie para a pasta 'defesacivilsenai\api-adonis-js\public'
-	copie tambem a pasta 'defesacivilweb'
-* Após configurar o servidor adonis, utilizar o comando 'nodemon' para subir o servidor, o endereço web, ficará com o path do servidor + o nome da pasta colocada no diretório `defesacivilsenai\api-adonis-js\public`
-	"http://localhost:3333/dist/#/"
+---
+
+## Project evolution
+
+The platform was initially built with Node.js (AdonisJS) and later migrated to a Java/Spring stack to gain robustness and sustain the growth of the application. Refactoring the entire backend mid-project was a deliberate technical decision that taught the team a lot about scalability and architectural tradeoffs.
+
+---
+
+## Architecture
+
+```
+[Citizens] --> [Mobile / Web report] --> [Spring REST API] --> [MySQL]
+                                                |
+                                                v
+                                  [Web Manager (Angular + PO-UI)]
+                                  used by Civil Defense staff
+```
+
+---
+
+## Repository structure
+
+```
+api-spring/             Java + Spring backend (REST API + Spring Security)
+defesacivilweb/         Public-facing web interface
+defesacivilwebmanager/  Angular admin panel used by Civil Defense staff
+app-react-native/       Mobile application for citizens
+```
+
+---
+
+## Tech stack
+
+- **Java + Spring** — REST API and backend logic
+- **Spring Security** — authentication and session control
+- **Angular** — web management interface
+- **React Native** — mobile application for citizens
+- **MySQL** — relational database
+- **Google Maps API** — real-time geolocation and incident mapping
+
+---
+
+## Publication
+
+The academic article describing this work is available in the proceedings of Computer on the Beach 2019:
+
+**"Geolocalização aplicada ao mapeamento de Desastres Naturais"**
+Faust, F.; Rover, T. H.; Duarte, W. C.; Camillo Junior, A.; Razera, T. M. — SENAI Joinville.
+[Read the paper](https://periodicos.univali.br/index.php/acotb/article/view/15916)
+
+---
+
+## Status
+
+This repository is an academic archive from 2018-2019. It is preserved as a record of the project and is not actively maintained.
+
+---
+
+## Author
+
+Thiago Henrique Rover
+[LinkedIn](https://www.linkedin.com/in/thiago-henrique-rover-97b8b3ba) · [GitHub](https://github.com/thiagorover)
+
+---
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
