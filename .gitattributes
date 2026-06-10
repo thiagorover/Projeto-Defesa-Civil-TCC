@@ -1,0 +1,5 @@
+# Vendor and generated files - exclude from language stats
+*.css linguist-vendored
+*.min.js linguist-vendored
+defesacivilweb/node_modules/** linguist-vendored
+defesacivilwebmanager/node_modules/** linguist-vendored
